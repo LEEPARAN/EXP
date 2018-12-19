@@ -17,3 +17,51 @@
   <source src="/video/test2.mov"></source>
 </video>
 ```
+
+### 2. Object.keys(), eval()
+```
+var obj = {
+  key1: "value1",
+  key2: "value2",
+  key3: "value3"
+}
+```
+
+예시로 위와 같은 코드를 뿌려줘야되는 상황이라 object의 length 만큼 for문을 돌려서 호출하려고 아래와 같은 코드를 작성하였다.
+
+```
+for(var i = 1; i <= obj.length; i++) {
+  console.log(obj.key + i);
+}
+```
+
+여기서 obj.length는 undefined가 출력되어 for문 자체가 실행도 되지않는다.
+그래서 구글링을 해본 결과 object의 자식의 길이 체크를 Object.keys() 메소드에서 할 수 있다고 하였고 정상적으로 동작하였다.
+
+```
+for(var i = 1; i <= Object.keys(obj).length; i++) {
+  console.log(obj.key + i);
+}
+```
+
+이젠 되겠지하고 하는데 뭐 하면서 안될거라고 생각하긴 했는데 obj.key + i 한다고 해서 역시나 obj.key1, 2, 3이 되지는 않았다.
+그래서 이것도 구글링해서 나온 결과 eval()이라는 함수안에 값을 넣어주면 String 형태의 js코드를 동적으로 이용할 수 있다.
+MDN에서 eval() 함수를 속도나 보안 등의 이유로 비권장하는데 일단 작업하는데 시간이 없어서 대안에 하는 코드를 읽어보지 못하였는데
+여유가 생긴다면 확인해보고 수정작업을 해야될 것 같다. 아무튼 아래와 같은 코드를 작성하였다.
+
+```
+for(var i = 1; i <= Object.keys(obj).length; i++) {
+  console.log(eval("obj.key" + i)); // 출력: value1, value2, value3
+}
+```
+
+### 3. for in 문
+이 코드는 존재에 대해 몰랐던 것은 절대 아닌데 사용할 일이 없다가 실무에서 처음 사용하게 되어 적어본다.
+객체의 key와 value 값을 모두 뽑아내고 싶을 때 아주 유용한 코드이다. 졸려서 별 다른 사족은 없다.
+```
+var object1 = {a: 1, b: 2, c: 3};
+for(key in object1) {
+  console.log("key": key); a, b, c
+  console.log("object1[key]': objecct1[key]); 1, 2, 3
+}
+```
