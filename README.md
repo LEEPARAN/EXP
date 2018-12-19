@@ -61,7 +61,7 @@ for(var i = 1; i <= Object.keys(obj).length; i++) {
 ```
 var object1 = {a: 1, b: 2, c: 3};
 for(key in object1) {
-  console.log("key": key); a, b, c
-  console.log("object1[key]': objecct1[key]); 1, 2, 3
+  console.log("key": key); // 출력: a, b, c
+  console.log("object1[key]': objecct1[key]); // 출력: 1, 2, 3
 }
 ```
